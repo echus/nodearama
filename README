@@ -1,0 +1,14 @@
+Useful links:
+= Low level Nodes docs
+http://wiki.blender.org/index.php/User:Phonybone/Nodes_Documentation
+
+= Python Nodes with examples
+http://wiki.blender.org/index.php/User:Phonybone/Python_Nodes
+
+= Blender API relevant docs
+http://www.blender.org/documentation/blender_python_api_2_70_release/bpy.types.NodeTree.html
+http://www.blender.org/documentation/blender_python_api_2_70_release/bpy.types.NodeSocket.html
+http://www.blender.org/documentation/blender_python_api_2_70_release/bpy.types.NodeLink.html
+
+= Random other bits
+http://blender.stackexchange.com/questions/10510/get-node-links-from-socket-index-value
