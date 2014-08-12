@@ -14,32 +14,21 @@ bl_info = {
 import bpy
 import nodeitems_utils
 
-from bpy.props import PointerProperty
-from nodeitems_utils import NodeItem
-
+# === Registration ===
 from . import tree
 from . import categories
 from . import nodes
 from . import sockets
 
-from .categories import NodearamaCategory
+from .categories import categories
 
-# === Custom category definitions ===
-categories = [NodearamaCategory("ANALYSIS", "Analysis",
-                items = [NodeItem("POSRead"), NodeItem("POSView")]),
-        ]
-
-# === Registration ===
 def register():
     bpy.utils.register_module(__name__)
     nodeitems_utils.register_node_categories("CUSTOM_CATEGORIES", categories)
-    # Global scene properties if needed
-    #bpy.types.Scene.custom_properties = PointerProperty(type=CustomPropertyGroup)
 
 def unregister():
     bpy.utils.unregister_module(__name__)
     nodeitems_utils.unregister_node_categories("CUSTOM_CATEGORIES")
-    #del bpy.types.Scene.custom_properties
 
 if __name__ == "__main__":
     register()

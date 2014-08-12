@@ -12,14 +12,11 @@ class POSRead(bpy.types.Node):
     rng_filename = StringProperty(subtype='FILE_PATH', default="//")
 
     def init(self, context):
-        self.outputs.new("XYZSocketOut", "XYZ")
+        self.outputs.new("XYZSocket", "XYZ")
         #self.outputs.new("CustomNodeSocket", "m/c")
 
     def update(self):
-        point = random.randint(-20, 20)
-        print("update(): Adding random point to POSRead out socket", point)
-        new_point = self.outputs['XYZ'].array.add()
-        new_point.value = (point, point, point)
+        print("POSRead.update()")
 
     def draw_buttons(self, context, layout):
         col = layout.column()

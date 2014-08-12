@@ -5,3 +5,6 @@ class NodearamaTree(bpy.types.NodeTree):
     bl_icon = "MESH_CYLINDER"
     bl_idname = "Nodearama"
     bl_label = "Nodearama"
+
+    def update(self):
+        print("NodeTree.update()")
