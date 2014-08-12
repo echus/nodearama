@@ -15,12 +15,10 @@ import bpy
 import nodeitems_utils
 
 # === Registration ===
-from . import tree
-from . import categories
-from . import nodes
-from . import sockets
-
-from .categories import categories
+# UI modules
+from Nodearama.interface import tree, nodes, sockets, categories
+# NodeTree category list
+from Nodearama.interface.categories import categories
 
 def register():
     bpy.utils.register_module(__name__)
