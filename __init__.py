@@ -16,9 +16,9 @@ import nodeitems_utils
 
 # === Registration ===
 # UI modules
-from Nodearama.interface import tree, nodes, sockets, categories
+from Nodearama.app.interface import tree, nodes, sockets, categories
 # NodeTree category list
-from Nodearama.interface.categories import categories
+from Nodearama.app.interface.categories import categories
 
 def register():
     bpy.utils.register_module(__name__)
