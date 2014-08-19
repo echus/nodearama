@@ -26,7 +26,7 @@ class NodeGraph:
 
     def connect(self, from_node, to_node, from_slot, to_slot):
         self.graph.add_edge(from_node, to_node, fr=from_slot, to=to_slot)
-        output = from_node.get_output_func(from_slot)
+        output = from_node.get_output(from_slot)
         to_node.set_input(to_slot, output)
 
     def disconnect(self, from_node, to_node, from_slot, to_slot):
@@ -37,5 +37,6 @@ class NodeGraph:
         """Evaluate total graph from starting node and return final output value"""
         eval_list = nx.topological_sort(self.graph)
         for n in eval_list:
-            print(n.evaluate())
+            n.evaluate()
+            print("evaluating type", type(n))
         return "FINISHED"

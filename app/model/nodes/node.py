@@ -21,18 +21,14 @@ class NodeBase:
         self.__input = [None] * num_inputs
         self.__output = [None] * num_outputs
 
-    def set_input(self, i, value):
-        """Set ith input slot value"""
+    def set_input(self, i, func):
+        """Set ith input slot function"""
         # TODO error handling
         # TODO check that value is of a slot type
-        self.__input[i] = value
+        self.__input[i] = func
 
     def get_output(self, i):
-        """Return ith output slot value"""
-        return self.__output[i]
-
-    def get_output_func(self, i):
-        #TODO FIXME EXPERIMENTAL
+        """Return ith output slot function"""
         def output_func():
             return self.__output[i]
         return output_func
@@ -44,7 +40,9 @@ class NodeBase:
 
     # Private methods for subclass use
     def _get_input(self, i):
-        return self.__input[i]()
+        func = self.__input[i]
+        value = func()
+        return value
 
     def _set_output(self, i, value):
         self.__output[i] = value
