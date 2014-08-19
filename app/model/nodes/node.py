@@ -25,13 +25,26 @@ class NodeBase:
         """Set ith input slot value"""
         # TODO error handling
         # TODO check that value is of a slot type
-        __input[i] = value
+        self.__input[i] = value
 
-    def output(self, i):
+    def get_output(self, i):
         """Return ith output slot value"""
-        return __output[i]
+        return self.__output[i]
+
+    def get_output_func(self, i):
+        #TODO FIXME EXPERIMENTAL
+        def output_func():
+            return self.__output[i]
+        return output_func
 
     @abc.abstractmethod
     def evaluate(self):
         """Evaluate node outputs using input slot values"""
         return
+
+    # Private methods for subclass use
+    def _get_input(self, i):
+        return self.__input[i]()
+
+    def _set_output(self, i, value):
+        self.__output[i] = value

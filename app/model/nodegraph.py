@@ -15,7 +15,7 @@ import networkx as nx
 
 class NodeGraph:
     def __init__(self):
-        graph = nx.MultiDiGraph()
+        self.graph = nx.MultiDiGraph()
 
     def add_node(self, node):
         # TODO check that it's a NodeBase
@@ -24,14 +24,18 @@ class NodeGraph:
     def remove_node(self, node):
         self.graph.remove_node(node)
 
-    def add_edge(self, from_node, to_node):
-        self.graph.add_edge(from_node, to_node)
+    def connect(self, from_node, to_node, from_slot, to_slot):
+        self.graph.add_edge(from_node, to_node, fr=from_slot, to=to_slot)
+        output = from_node.get_output_func(from_slot)
+        to_node.set_input(to_slot, output)
 
-    def remove_edge(self, from_node, to_node):
-        # TODO how to deal with multiple edges here??
-        self.graph.remove_edge(from_node, to_node)
+    def disconnect(self, from_node, to_node, from_slot, to_slot):
+        self.graph.remove_edge(from_node, to_node, fr=from_slot, to=to_slot)
+        to_node.set_input(to_slot, None)
 
-    def evaluate_graph(self):
+    def evaluate(self):
         """Evaluate total graph from starting node and return final output value"""
-        # topological sort
-        return
+        eval_list = nx.topological_sort(self.graph)
+        for n in eval_list:
+            print(n.evaluate())
+        return "FINISHED"

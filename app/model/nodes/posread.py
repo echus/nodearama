@@ -11,15 +11,26 @@
 # POSRead analysis node definition
 # =============================================================================
 
-from node import NodeBase
+# Node base and slots
+from . import NodeBase
+#from .slots import Array3DSlot
+
+# Import APTRead module
+from ...modules.aptread import ReadAPTData
 
 N_IN = 0
 N_OUT = 2
 
 class POSReadNode(NodeBase):
     def __init__(self):
+        # Initialise input and output slots
         super(POSReadNode, self).__init__(N_IN, N_OUT)
+        # Node properties
+        self.pos_path = ""
+        self.rng_path = ""
 
     def evaluate(self):
-        print("number in, out:", N_IN, N_OUT)
-        return "Done"
+        data = ReadAPTData(self.pos_path, self.rng_path)
+        self._set_output(0, data.xyz)
+        self._set_output(1, data.mc)
+        return "FINISHED"
