@@ -16,10 +16,10 @@ import abc
 class NodeBase:
     __metaclass__ = abc.ABCMeta
 
-    # Input/output slots
-    # These need to be initialised to correct sizes
-    __input = []
-    __output = []
+    def __init__(self, num_inputs, num_outputs):
+        # Initialise input/output slots
+        self.__input = [None] * num_inputs
+        self.__output = [None] * num_outputs
 
     def set_input(self, i, value):
         """Set ith input slot value"""
@@ -32,6 +32,6 @@ class NodeBase:
         return __output[i]
 
     @abc.abstractmethod
-    def evaluate():
+    def evaluate(self):
         """Evaluate node outputs using input slot values"""
         return
