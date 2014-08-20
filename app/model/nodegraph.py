@@ -26,6 +26,7 @@ class NodeGraph:
 
     def connect(self, from_node, to_node, from_slot, to_slot):
         self.graph.add_edge(from_node, to_node, fr=from_slot, to=to_slot)
+        # Point input of to_node to Slot output of from_node
         output = from_node.get_output(from_slot)
         to_node.set_input(to_slot, output)
 

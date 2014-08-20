@@ -13,7 +13,7 @@
 
 # Node base and slots
 from . import NodeBase
-#from .slots import Array3DSlot
+from .slots import Array3DSlot
 
 # Import APTRead module
 from ...modules.aptread import ReadAPTData
@@ -25,12 +25,15 @@ class POSReadNode(NodeBase):
     def __init__(self):
         # Initialise input and output slots
         super(POSReadNode, self).__init__(N_IN, N_OUT)
+        self._set_output(0, Array3DSlot())
+        self._set_output(1, Array3DSlot())
+
         # Node properties
         self.pos_path = ""
         self.rng_path = ""
 
     def evaluate(self):
         data = ReadAPTData(self.pos_path, self.rng_path)
-        self._set_output(0, data.xyz)
-        self._set_output(1, data.mc)
+        self.get_output(0).value = data.xyz
+        self.get_output(1).value = data.mc
         return "FINISHED"

@@ -15,8 +15,8 @@ from .slot import SlotBase
 import numpy as np
 
 class Array3DSlot(SlotBase):
-    def __init__(self, length):
-        self.__value = np.zeros((length, 3))
+    def __init__(self):
+        self.__value = None
 
     def value_getter(self):
         return self.__value

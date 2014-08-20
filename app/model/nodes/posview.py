@@ -23,5 +23,8 @@ class POSViewNode(NodeBase):
         super(POSViewNode, self).__init__(N_IN, N_OUT)
 
     def evaluate(self):
-        print(self._get_input(0))
+        print("POS input received:")
+        slot = self._get_input(0)
+        print(slot)
+        print(slot.value)
         return "FINISHED"
