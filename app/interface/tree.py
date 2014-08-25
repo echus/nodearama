@@ -7,4 +7,7 @@ class NodearamaTree(bpy.types.NodeTree):
     bl_label = "Nodearama"
 
     def update(self):
-        print("NodeTree.update()")
+        # Scene global observable for communicating with Adapter
+        obs = bpy.context.scene.observable
+
+        obs.notify_observers("nodetree-update")

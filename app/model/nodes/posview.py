@@ -11,7 +11,6 @@
 # POSView display node definition
 # =============================================================================
 
-# Node base and slots
 from . import NodeBase
 
 N_IN = 1

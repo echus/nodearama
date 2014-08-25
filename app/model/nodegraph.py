@@ -13,8 +13,12 @@
 
 import networkx as nx
 
-class NodeGraph:
+# NodeGraph is the observable model
+from ..modules.observe import Observable
+
+class NodeGraph(Observable):
     def __init__(self):
+        super(NodeGraph, self).__init__()
         self.graph = nx.MultiDiGraph()
 
     def add_node(self, node):
@@ -40,4 +44,7 @@ class NodeGraph:
         for n in eval_list:
             n.evaluate()
             print("evaluating type", type(n))
+
+        # Notify observers of finished calculation
+        self.notifyObservers("EVALUATION DONE")
         return "FINISHED"
