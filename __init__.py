@@ -17,7 +17,7 @@ import nodeitems_utils
 # === MVC setup ===
 from Nodearama.app.adapter import Adapter
 # NodeTree observable scene global
-from Nodearama.app.modules.observe import Observable
+from Nodearama.app.communication.observe import Observable
 
 # === Blender class registration ===
 # UI modules

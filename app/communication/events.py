@@ -12,24 +12,25 @@
 # =============================================================================
 
 # === Event base: all events must reference the node they are acting on ===
-import abc
 
 class EventBase:
-    __metaclass__ = abc.ABCMeta
-
-    def __init__(self, node_id):
-        self.node_id = node_id # Unique reference to object event is acting on
+    def __init__(self, uuid):
+        self.uuid = uuid # Unique reference to object event is acting on
 
 class CreateNode(EventBase):
-    def __init__(self, node_id):
-        super(CreateNode, self).__init__(node_id)
+    def __init__(self, uuid):
+        super(CreateNode, self).__init__(uuid)
 
 class DeleteNode(EventBase):
-    def __init__(self, node_id):
-        super(CreateNode, self).__init__(node_id)
+    def __init__(self, uuid):
+        super(DeleteNode, self).__init__(uuid)
 
 class UpdateNode(EventBase):
-    def __init__(self, node_id, properties, links):
-        super(CreateNode, self).__init__(node_id)
+    def __init__(self, uuid, properties=None, links=None):
+        super(UpdateNode, self).__init__(uuid)
         self.properties = properties
         self.links = links
+
+class CreateNodeTree(EventBase):
+    def __init__(self, uuid):
+        super(CreateNodeTree, self).__init__(uuid)

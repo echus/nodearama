@@ -11,10 +11,35 @@
 # MVA Adapter
 # =============================================================================
 
-from .modules.observe import Observer
+from .communication.observe import Observer
 
 class Adapter(Observer):
-    def notify(self, observable, *args, **kwargs):
-        for a in args:
-            print("Got", a, "from", observable)
-        return
+    def __init__(self, observable):
+        # Register observer
+        super(Adapter, self).__init__(observable)
+
+        # Initialise event handler dict
+        self.handler = {
+            'CreateNode': self.onCreateNode,
+            'DeleteNode': self.onDeleteNode,
+            'UpdateNode': self.onUpdateNode,
+            'CreateNodeTree': self.onCreateNodeTree,
+            }
+
+    def notify(self, observable, event):
+        # Get name of event class
+        event_name = event.__class__.__name__
+        # Call appropriate handler
+        self.handler[event_name](event)
+
+    def onCreateNode(self, event):
+        print("Create node with id", event.uuid)
+
+    def onDeleteNode(self, event):
+        print("Delete node with id", event.uuid)
+
+    def onUpdateNode(self, event):
+        print("Update node with id", event.uuid)
+
+    def onCreateNodeTree(self, event):
+        print("Create nodetree with id", event.uuid)

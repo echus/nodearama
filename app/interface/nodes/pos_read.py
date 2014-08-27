@@ -1,10 +1,26 @@
+# =============================================================================
+# (C) Copyright 2014
+# Australian Centre for Microscopy & Microanalysis
+# The University of Sydney
+# =============================================================================
+# File:   pos_read.py
+# Date:   2014-08-14
+# Author: Varvara Efremova
+#
+# Description:
+# Blender POSRead node definition
+# =============================================================================
+
+# Blender API
 import bpy
 from bpy.props import PointerProperty, StringProperty
 
-# temp testing
-import random
+# Base class for ID tagging
+from ..base import IDable
+# Events for communication with Observer (Adapter)
+from ...communication.events import CreateNode, DeleteNode, UpdateNode
 
-class POSRead(bpy.types.Node):
+class POSRead(bpy.types.Node, IDable):
     bl_idname = "POSRead"
     bl_label = "POS Read"
 
@@ -12,18 +28,27 @@ class POSRead(bpy.types.Node):
     rng_filename = StringProperty(subtype='FILE_PATH', default="//")
 
     def init(self, context):
-        obs = bpy.context.scene.observable
-
+        # Initialise sockets
         self.outputs.new("XYZSocket", "XYZ")
-        #self.outputs.new("CustomNodeSocket", "m/c")
 
-        obs.notify_observers("node-init")
+        # Generate unique ID for this node
+        self.generate_id()
+
+        # Communicate creation to observers
+        obs = bpy.context.scene.observable
+        event = CreateNode(self.uuid)
+        obs.notify_observers(event)
 
     def update(self):
-        # Get scene global observable
-        obs = bpy.context.scene.observable
+        # Check node is initialised
+        if not self.initialised():
+            print("node not init'd yet")
+            return
 
-        obs.notify_observers("node-update")
+        # Communicate updated info to observers
+        obs = bpy.context.scene.observable
+        event = UpdateNode(self.uuid)
+        obs.notify_observers(event)
 
     def draw_buttons(self, context, layout):
         col = layout.column()
