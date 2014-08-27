@@ -26,8 +26,11 @@ from Nodearama.app.interface import tree, nodes, sockets, categories
 from Nodearama.app.interface.categories import categories
 
 def register():
+    # === Blender classes ===
     bpy.utils.register_module(__name__)
     nodeitems_utils.register_node_categories("CUSTOM_CATEGORIES", categories)
+
+    # === Model setup ===
     # Scene global used by NodeTree & Nodes for communication with Adapter
     # Workaround due to NodeTree/Node non-persistent classes
     bpy.types.Scene.observable = Observable()
@@ -39,6 +42,7 @@ def unregister():
     bpy.utils.unregister_module(__name__)
     nodeitems_utils.unregister_node_categories("CUSTOM_CATEGORIES")
     del bpy.types.Scene.observable
+    del bpy.types.Scene.adapter
 
 if __name__ == "__main__":
     register()
