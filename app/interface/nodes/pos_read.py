@@ -15,12 +15,10 @@
 import bpy
 from bpy.props import PointerProperty, StringProperty
 
-# Base class for ID tagging
-from ..base import IDable
-# Events for communication with Observer (Adapter)
-from ...communication.events import CreateNode, DeleteNode, UpdateNode
+# Base node class
+from .node import BlenderNodeBase
 
-class POSRead(bpy.types.Node, IDable):
+class POSRead(bpy.types.Node, BlenderNodeBase):
     bl_idname = "POSRead"
     bl_label = "POS Read"
 
@@ -28,27 +26,13 @@ class POSRead(bpy.types.Node, IDable):
     rng_filename = StringProperty(subtype='FILE_PATH', default="//")
 
     def init(self, context):
+        super(POSRead, self).init(context)
+
         # Initialise sockets
         self.outputs.new("XYZSocket", "XYZ")
 
-        # Generate unique ID for this node
-        self.generate_id()
-
-        # Communicate creation to observers
-        obs = bpy.context.scene.observable
-        event = CreateNode(self.uuid)
-        obs.notify_observers(event)
-
     def update(self):
-        # Check node is initialised
-        if not self.initialised():
-            print("node not init'd yet")
-            return
-
-        # Communicate updated info to observers
-        obs = bpy.context.scene.observable
-        event = UpdateNode(self.uuid)
-        obs.notify_observers(event)
+        super(POSRead, self).update()
 
     def draw_buttons(self, context, layout):
         col = layout.column()
