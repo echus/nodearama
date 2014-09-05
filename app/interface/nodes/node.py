@@ -18,18 +18,11 @@ import bpy
 
 # Base class for ID tagging
 from ..base import IDable
-# Events for communication with Observer (Adapter)
-from ...communication.events import CreateNode, DeleteNode, UpdateNode
 
 class BlenderNodeBase(IDable):
     def init(self, context, color=None):
         # Generate unique ID for this node
         self.generate_id()
-
-        # Communicate creation to observers
-        obs = bpy.context.scene.observable
-        event = CreateNode(self.uuid, "NODETREE") # TODO PARENT NODETREE ID
-        obs.notify_observers(event)
 
         # Use custom color if specified
         if color is not None:
@@ -37,13 +30,8 @@ class BlenderNodeBase(IDable):
             self.color = color
 
     def update(self):
+        pass
         # Check node is initialised
-        if not self.initialised():
-            print("node not init'd yet")
-            return
-
-        # Communicate updated info to observers
-        obs = bpy.context.scene.observable
-        # TODO PARENT NODETREE ID
-        event = UpdateNode(self.uuid, "NODETREE")
-        obs.notify_observers(event)
+        #if not self.initialised():
+        #    print("node not init'd yet")
+        #    return

@@ -20,7 +20,7 @@ from uuid import uuid4
 # Base class for ID tagging
 from .base import IDable
 # Event classes for communication with Observer
-from ..communication.events import CreateNodeTree
+from ..communication.events import UpdateNodeTree
 
 class NodearamaTree(bpy.types.NodeTree, IDable):
     bl_description = "Atom probe analysis nodes"
@@ -33,19 +33,16 @@ class NodearamaTree(bpy.types.NodeTree, IDable):
         self.generate_id()
 
         # Communicate creation to observers
-        obs = bpy.context.scene.observable
-        event = CreateNodeTree(self.uuid)
-        obs.notify_observers(event)
+        #obs = bpy.context.scene.observable
+        #event = CreateNodeTree(self.uuid)
+        #obs.notify_observers(event)
 
     def update(self):
-        # Check nodetree is initialised, if not call init
-        print("NT update called")
-
+        # Initialise node if not initialised yet
         if not self.initialised():
             self.init()
-            return
 
         # Communicate update
-        #obs = bpy.context.scene.observable
-        #event = UpdateNodeTree(self.uuid)
-        #obs.notify_observers(event)
+        obs = bpy.context.scene.observable
+        event = UpdateNodeTree(self.uuid, self.nodes, self.links)
+        obs.notify_observers(event)

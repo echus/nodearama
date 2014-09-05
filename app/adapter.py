@@ -20,28 +20,23 @@ class Adapter(Observer):
 
         # Initialise event handler dict
         self.handler = {
-            'CreateNode': self.onCreateNode,
-            'DeleteNode': self.onDeleteNode,
-            'UpdateNode': self.onUpdateNode,
             'CreateNodeTree': self.onCreateNodeTree,
+            'UpdateNodeTree': self.onUpdateNodeTree,
             }
 
         self.graphs = [] # NodeGraph storage list
 
     def notify(self, observable, event):
+        """Invoke correct handler whenever an event is received"""
         # Get name of event class
         event_name = event.__class__.__name__
         # Call appropriate handler
         self.handler[event_name](event)
 
-    def onCreateNode(self, event):
-        print("Create node with id", event.uuid)
-
-    def onDeleteNode(self, event):
-        print("Delete node with id", event.uuid)
-
-    def onUpdateNode(self, event):
-        print("Update node with id", event.uuid)
-
     def onCreateNodeTree(self, event):
-        print("Create nodetree with id", event.uuid)
+        print("Create nodetree with id:", event.uuid)
+
+    def onUpdateNodeTree(self, event):
+        print("Update nodetree with id:", event.uuid)
+        print("    Nodes:", event.nodes)
+        print("    Links:", event.links)
