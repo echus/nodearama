@@ -4,32 +4,35 @@
 # The University of Sydney
 # =============================================================================
 # File:   pos_read.py
-# Date:   2014-08-27
+# Date:   2014-08-14
 # Author: Varvara Efremova
 #
 # Description:
-# Blender POSView node definition
+# Blender POSRead node definition
 # =============================================================================
 
 # Blender API
 import bpy
+from bpy.props import FloatProperty
 
 # Base node class
 from .node import BlenderNodeBase
 
-class POSView(bpy.types.Node, BlenderNodeBase):
-    bl_idname = "POSView"
-    bl_label = "3DView"
+class Division(bpy.types.Node, BlenderNodeBase):
+    bl_idname = "Division"
+    bl_label = "Vector Division"
 
     def init(self, context):
-        super(POSView, self).init(context)
+        super(Division, self).init(context)
 
         # Initialise sockets
-        self.inputs.new("XYZSocket", "XYZ")
+        self.inputs.new("XYZSocket", "Input 1")
+        self.inputs.new("XYZSocket", "Input 2")
+        self.outputs.new("XYZSocket", "Result")
 
     def update(self):
-        super(POSView, self).update()
+        super(Division, self).update()
 
-    def draw_buttons(self, context, layout):
-        col = layout.column()
-        col.label("See 3D View")
+    #def draw_buttons(self, context, layout):
+        #col = layout.column()
+        #col.label("Divide vectors")

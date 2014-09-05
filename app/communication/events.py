@@ -11,26 +11,33 @@
 # Event objects for communication with adapter
 # =============================================================================
 
-# === Event base: all events must reference the node they are acting on ===
-
-class EventBase:
-    def __init__(self, uuid):
+# === Event bases ===
+class NodeEventBase:
+    def __init__(self, uuid, nodetree_uuid):
         self.uuid = uuid # Unique reference to object event is acting on
+        self.nodetree_uuid = nodetree_uuid # Unique ref to parent NodeTree
 
-class CreateNode(EventBase):
+class NodeTreeEventBase:
     def __init__(self, uuid):
-        super(CreateNode, self).__init__(uuid)
+        self.uuid = uuid # Unique reference to NodeTree event is acting on
 
-class DeleteNode(EventBase):
-    def __init__(self, uuid):
-        super(DeleteNode, self).__init__(uuid)
+# === Event definitions ===
+# === Nodes ===
+class CreateNode(NodeEventBase):
+    def __init__(self, uuid, nodetree_uuid):
+        super(CreateNode, self).__init__(uuid, nodetree_uuid)
 
-class UpdateNode(EventBase):
-    def __init__(self, uuid, properties=None, links=None):
-        super(UpdateNode, self).__init__(uuid)
+class DeleteNode(NodeEventBase):
+    def __init__(self, uuid, nodetree_uuid):
+        super(DeleteNode, self).__init__(uuid, nodetree_uuid)
+
+class UpdateNode(NodeEventBase):
+    def __init__(self, uuid, nodetree_uuid, properties=None, links=None):
+        super(UpdateNode, self).__init__(uuid, nodetree_uuid)
         self.properties = properties
         self.links = links
 
-class CreateNodeTree(EventBase):
+# === NodeTrees ===
+class CreateNodeTree(NodeTreeEventBase):
     def __init__(self, uuid):
         super(CreateNodeTree, self).__init__(uuid)

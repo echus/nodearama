@@ -30,20 +30,22 @@ class NodearamaTree(bpy.types.NodeTree, IDable):
 
     def init(self):
         # Generate unique ID
-        self.node_id = str(uuid4())
+        self.generate_id()
 
         # Communicate creation to observers
         obs = bpy.context.scene.observable
-        event = CreateNodeTree(self.node_id)
+        event = CreateNodeTree(self.uuid)
         obs.notify_observers(event)
 
     def update(self):
         # Check nodetree is initialised, if not call init
+        print("NT update called")
+
         if not self.initialised():
             self.init()
             return
 
         # Communicate update
         #obs = bpy.context.scene.observable
-        #event = UpdateNodeTree(self.node_id)
+        #event = UpdateNodeTree(self.uuid)
         #obs.notify_observers(event)

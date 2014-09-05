@@ -8,5 +8,11 @@ class NodearamaCategory(NodeCategory):
 
 # === Category list def ===
 categories = [NodearamaCategory("ANALYSIS", "Analysis",
-                items = [NodeItem("POSRead"), NodeItem("POSView")]),
+                items = [NodeItem("POSRead"),
+                         NodeItem("POSView"),
+                         NodeItem("POSSplit"),
+                         NodeItem("Vox"),
+                         NodeItem("Isosurf"),
+                         NodeItem("Division"),
+                         ]),
         ]

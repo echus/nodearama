@@ -26,6 +26,8 @@ class Adapter(Observer):
             'CreateNodeTree': self.onCreateNodeTree,
             }
 
+        self.graphs = [] # NodeGraph storage list
+
     def notify(self, observable, event):
         # Get name of event class
         event_name = event.__class__.__name__

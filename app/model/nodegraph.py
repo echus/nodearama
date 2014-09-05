@@ -14,7 +14,7 @@
 import networkx as nx
 
 # NodeGraph is the observable model
-from ..modules.observe import Observable
+from ..communication.observe import Observable
 
 class NodeGraph(Observable):
     def __init__(self):
@@ -46,5 +46,5 @@ class NodeGraph(Observable):
             print("evaluating type", type(n))
 
         # Notify observers of finished calculation
-        self.notifyObservers("EVALUATION DONE")
+        self.notify_observers("EVALUATION DONE")
         return "FINISHED"

@@ -3,33 +3,37 @@
 # Australian Centre for Microscopy & Microanalysis
 # The University of Sydney
 # =============================================================================
-# File:   pos_read.py
-# Date:   2014-08-27
+# File:   isosurf.py
+# Date:   2014-08-14
 # Author: Varvara Efremova
 #
 # Description:
-# Blender POSView node definition
+# Blender isosurface node interface definition
 # =============================================================================
 
 # Blender API
 import bpy
+from bpy.props import FloatProperty
 
 # Base node class
 from .node import BlenderNodeBase
 
-class POSView(bpy.types.Node, BlenderNodeBase):
-    bl_idname = "POSView"
-    bl_label = "3DView"
+class Isosurf(bpy.types.Node, BlenderNodeBase):
+    bl_idname = "Isosurf"
+    bl_label = "Isosurface"
+
+    value = FloatProperty(default=1.0)
 
     def init(self, context):
-        super(POSView, self).init(context)
+        super(Isosurf, self).init(context)
 
         # Initialise sockets
-        self.inputs.new("XYZSocket", "XYZ")
+        self.inputs.new("XYZSocket", "Density")
+        self.outputs.new("XYZSocket", "Isosurface")
 
     def update(self):
-        super(POSView, self).update()
+        super(Isosurf, self).update()
 
     def draw_buttons(self, context, layout):
         col = layout.column()
-        col.label("See 3D View")
+        col.prop(self, "value", text="Value")

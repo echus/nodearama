@@ -22,14 +22,19 @@ from ..base import IDable
 from ...communication.events import CreateNode, DeleteNode, UpdateNode
 
 class BlenderNodeBase(IDable):
-    def init(self, context):
+    def init(self, context, color=None):
         # Generate unique ID for this node
         self.generate_id()
 
         # Communicate creation to observers
         obs = bpy.context.scene.observable
-        event = CreateNode(self.uuid)
+        event = CreateNode(self.uuid, "NODETREE") # TODO PARENT NODETREE ID
         obs.notify_observers(event)
+
+        # Use custom color if specified
+        if color is not None:
+            self.use_custom_color = True
+            self.color = color
 
     def update(self):
         # Check node is initialised
@@ -39,5 +44,6 @@ class BlenderNodeBase(IDable):
 
         # Communicate updated info to observers
         obs = bpy.context.scene.observable
-        event = UpdateNode(self.uuid)
+        # TODO PARENT NODETREE ID
+        event = UpdateNode(self.uuid, "NODETREE")
         obs.notify_observers(event)
