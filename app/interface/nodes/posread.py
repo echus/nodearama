@@ -16,7 +16,8 @@ import bpy
 from bpy.props import StringProperty
 
 # Base node class
-from .node import BlenderNodeBase
+#from .nodebase import BlenderNodeBase
+from . import BlenderNodeBase
 
 COLOR = (0.93, 0.47, 0.26)
 

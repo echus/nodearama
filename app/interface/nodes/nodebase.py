@@ -8,9 +8,10 @@
 # Author: Varvara Efremova
 #
 # Description:
-# Blender base node class definition (all nodes inheret from this)
-# Defines methods for notifying Observers on init/update/delete
-# And initialises node ID
+# Base classes used by all nodes
+# BlenderNodeBase:
+#     Blender base node class definition (all nodes inheret from this)
+#     Initialises node ID and general node settings
 # =============================================================================
 
 # Blender API

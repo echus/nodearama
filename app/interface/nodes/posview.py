@@ -15,7 +15,7 @@
 import bpy
 
 # Base node class
-from .node import BlenderNodeBase
+from . import BlenderNodeBase
 
 class POSViewNode(bpy.types.Node, BlenderNodeBase):
     bl_idname = "POSViewNode"
