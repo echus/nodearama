@@ -42,7 +42,29 @@ class NodearamaTree(bpy.types.NodeTree, IDable):
         if not self.initialised():
             self.init()
 
+        # Event information
+        uuid = self.uuid
+        nodes = self.gen_node_dict()
+        links = self.gen_link_dict()
+
         # Communicate update
         obs = bpy.context.scene.observable
-        event = UpdateNodeTree(self.uuid, self.nodes, self.links)
+        event = UpdateNodeTree(uuid, nodes, links)
         obs.notify_observers(event)
+
+    def gen_node_dict(self):
+        bl_nodes = self.nodes # List of blender nodes currently in NodeTree
+        nodes = {}            # Dict of node information
+
+        for bl_node in bl_nodes:
+            uuid = bl_node.uuid                       # Unique node ID
+            nodes[uuid] = {}                          # New dict for each node
+            nodes[uuid]['bl_idname'] = bl_node.bl_idname # Node type
+            #for prop in bl_node.props:
+            #     nodes[uuid][prop.name] = prop.value
+        return nodes
+
+    def gen_link_dict(self):
+        links = self.links
+        return links
+

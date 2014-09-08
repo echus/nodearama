@@ -11,20 +11,21 @@
 # MVA Adapter
 # =============================================================================
 
+from .model import NodeGraph
 from .communication.observe import Observer
 
 class Adapter(Observer):
     def __init__(self, observable):
-        # Register observer
+        # Register observer for notifications from observable view
         super(Adapter, self).__init__(observable)
 
         # Initialise event handler dict
         self.handler = {
-            'CreateNodeTree': self.onCreateNodeTree,
-            'UpdateNodeTree': self.onUpdateNodeTree,
+            'CreateNodeTree': self.on_create_node_tree,
+            'UpdateNodeTree': self.on_update_node_tree,
             }
 
-        self.graphs = [] # NodeGraph storage list
+        self.graphs = {} # NodeGraph storage dict
 
     def notify(self, observable, event):
         """Invoke correct handler whenever an event is received"""
@@ -33,10 +34,56 @@ class Adapter(Observer):
         # Call appropriate handler
         self.handler[event_name](event)
 
-    def onCreateNodeTree(self, event):
-        print("Create nodetree with id:", event.uuid)
+    # === Handlers ===
+    def on_create_node_tree(self, event):
+        pass
+        #print("Create nodetree with id:", event.uuid)
 
-    def onUpdateNodeTree(self, event):
+    def on_update_node_tree(self, event):
         print("Update nodetree with id:", event.uuid)
         print("    Nodes:", event.nodes)
         print("    Links:", event.links)
+
+
+
+        # Create new NodeGraph if uuid not found in self.graphs
+        """if self.uuid not in self.graphs.keys():
+            self.graphs[event.uuid] = NodeGraph()
+            return
+
+        g = self.graphs[event.uuid]
+
+        # Do diffing here, find nodes to be created and deleted
+
+        mk_nodes = []
+        rm_nodes = []
+        mk_links = []
+        rm_links = []
+
+        # Make graph nodes from blender node information
+        nodes_to_add = [self.make_graph_node(b_node) for b_node in mk_nodes]
+        # Add new nodes to graph
+        for node in nodes_to_add:
+            g.add_node(node)
+
+        # Make links
+        for b_link in mk_links:
+            pass
+
+        # Delete nodes
+        for b_node in rm_nodes:
+            pass
+
+        # Delete links
+        for b_link in rm_links:
+            pass"""
+
+    # === Maker functions ===
+    def make_graph_node(b_node):
+        """Returns a graph node given blender node instance"""
+        uuid = b_node.uuid
+
+        # Properties generated here
+
+        # TODO make node factory to do this based on node bl_id!!!
+        g_node = POSReadNode()

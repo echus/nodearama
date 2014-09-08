@@ -20,21 +20,21 @@ from .node import BlenderNodeBase
 
 COLOR = (0.93, 0.47, 0.26)
 
-class POSRead(bpy.types.Node, BlenderNodeBase):
-    bl_idname = "POSRead"
+class POSReadNode(bpy.types.Node, BlenderNodeBase):
+    bl_idname = "POSReadNode"
     bl_label = "POS Read"
 
     pos_filename = StringProperty(subtype='FILE_PATH', default="//")
     #rng_filename = StringProperty(subtype='FILE_PATH', default="//")
 
     def init(self, context):
-        super(POSRead, self).init(context, color=COLOR)
+        super(POSReadNode, self).init(context, color=COLOR)
 
         # Initialise sockets
         self.outputs.new("XYZSocket", "POS XYZ")
 
     def update(self):
-        super(POSRead, self).update()
+        super(POSReadNode, self).update()
 
     def draw_buttons(self, context, layout):
         col = layout.column()

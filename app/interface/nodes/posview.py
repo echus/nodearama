@@ -17,18 +17,18 @@ import bpy
 # Base node class
 from .node import BlenderNodeBase
 
-class POSView(bpy.types.Node, BlenderNodeBase):
-    bl_idname = "POSView"
-    bl_label = "3DView"
+class POSViewNode(bpy.types.Node, BlenderNodeBase):
+    bl_idname = "POSViewNode"
+    bl_label = "POS View"
 
     def init(self, context):
-        super(POSView, self).init(context)
+        super(POSViewNode, self).init(context)
 
         # Initialise sockets
         self.inputs.new("XYZSocket", "XYZ")
 
     def update(self):
-        super(POSView, self).update()
+        super(POSViewNode, self).update()
 
     def draw_buttons(self, context, layout):
         col = layout.column()
