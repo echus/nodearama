@@ -11,7 +11,7 @@
 # POSView display node definition
 # =============================================================================
 
-from . import NodeBase
+from .nodebase import NodeBase
 
 N_IN = 1
 N_OUT = 0

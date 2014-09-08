@@ -1,13 +1,13 @@
-from app.model.nodes import POSReadNode, POSViewNode
+from app.model.nodes import NodeFactory
 from app.model import NodeGraph
 
 import os.path
 
-read = POSReadNode()
+read = NodeFactory.make("POSReadNode")
 read.pos_path = os.path.abspath("./data/R04.pos")
 read.rng_path = os.path.abspath("./data/R04.rng")
 
-view = POSViewNode()
+view = NodeFactory.make("POSViewNode")
 
 g = NodeGraph()
 g.add_node(read)

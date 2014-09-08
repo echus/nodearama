@@ -3,19 +3,18 @@
 # Australian Centre for Microscopy & Microanalysis
 # The University of Sydney
 # =============================================================================
-# File:   node.py
+# File:   nodebase.py
 # Date:   2014-08-14
 # Author: Varvara Efremova
 #
 # Description:
-# Abstract base class defining analysis node structure
+# NodeBase: Abstract base class defining analysis node structure
 # =============================================================================
 
 import abc
 
 class NodeBase:
     __metaclass__ = abc.ABCMeta
-
     def __init__(self, num_inputs, num_outputs):
         # Initialise input/output slots
         self.__input = [None] * num_inputs
@@ -36,7 +35,7 @@ class NodeBase:
         """Evaluate node outputs using input slot values"""
         return
 
-    # Private methods for subclass use
+    # Protected methods for subclass use only
     def _get_input(self, i):
         return self.__input[i]
 

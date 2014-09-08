@@ -12,7 +12,7 @@
 # =============================================================================
 
 # Node base and slots
-from . import NodeBase
+from .nodebase import NodeBase
 from .slots import Array3DSlot
 
 # Import APTRead module
