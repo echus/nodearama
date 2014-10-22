@@ -12,6 +12,8 @@
 # =============================================================================
 
 from .model import NodeGraph
+from .model.nodes import NodeFactory
+
 from .communication.observe import Observer
 
 class Adapter(Observer):
@@ -43,10 +45,21 @@ class Adapter(Observer):
         print("Update nodetree with id:", event.uuid)
         print("    Nodes:", event.nodes)
         print("    Links:", event.links)
+        print()
 
+        # Create new Graph if this is a new NodeTree
+        if event.uuid not in self.graphs.keys():
+            print("Creating new NodeGraph")
+            self.graphs[event.uuid] = NodeGraph()
+            print("    ", self.graphs)
+            print()
 
-
-        # Create new NodeGraph if uuid not found in self.graphs
+        g = self.graphs[event.uuid] # Convenience
+        # Loop over all nodes, comparing, if one not found create it etc
+        # TODO a way to return nodes in NodeGraph in the same format as event sends them?
+        # OR FIRST create Node from each Blender Node
+        # Then write a compare function in NodeBase
+        # And use this to compare nodes
         """if self.uuid not in self.graphs.keys():
             self.graphs[event.uuid] = NodeGraph()
             return
